@@ -1,13 +1,20 @@
 import personas.*
+import fiesta.*
 
 class Disfraz {
 	var nombreDisfraz
-	var fechaConfeccion
+	var fechaConfeccion = new Date()
 	var caracteristicas = []
-	var puntos
+	var puntos = 0
 	var personaQueLoLleva
 		
 	method puntos() = puntos
+	
+	method tieneDisfraz() = true
+	
+	method sacarDuenio(){
+		personaQueLoLleva = nadie
+	}
 	
 	method nombreDisfraz() = nombreDisfraz
 	
@@ -25,6 +32,16 @@ class Disfraz {
 		puntos = puntosQueTiene
 	}
 	
+	method duenioConforme() = personaQueLoLleva.estaConforme(self)
+	
+	method tieneNombrePar() = nombreDisfraz.even()
+	
+	method hechoRecientemente(fechaActual) = fechaConfeccion >= (fechaActual.minusDays(30))
+	
+}
+
+object ninguno inherits Disfraz{
+	override method tieneDisfraz() = false
 }
 
 class Gracioso{
@@ -47,12 +64,14 @@ class Gracioso{
 class tobara{
 	var puntosQueTiene
 	var diaComprado
-	var diaFiesta
+	var unaFiesta
+	
+	method diaFiesta() = unaFiesta.fecha()
 	
 	method puntosQueTiene() = puntosQueTiene
 	
 	method puntosQueDa(disfraz){
-		if((diaComprado + 2) <= diaFiesta){
+		if((diaComprado.plusDays(2)) <= self.diaFiesta()){
 			puntosQueTiene = 5
 		}else{
 			puntosQueTiene = 3
