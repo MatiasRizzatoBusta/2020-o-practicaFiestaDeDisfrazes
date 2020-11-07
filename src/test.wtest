@@ -1,0 +1,11 @@
+import personas.*
+import fiesta.*
+import disfraces.*
+
+const disfrazGraciosoYtobara
+
+test "determino el puntje de un disfraz" {
+
+	
+
+}
