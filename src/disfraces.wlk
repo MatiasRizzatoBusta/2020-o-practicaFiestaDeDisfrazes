@@ -6,15 +6,14 @@ class Disfraz {
 	var fechaConfeccion = new Date()
 	var caracteristicas = []
 	var puntos = 0
-	var personaQueLoLleva
 		
 	method puntos() = puntos
 	
-	method tieneDisfraz() = true
-	
-	method sacarDuenio(){
-		personaQueLoLleva = nadie
+	method sumarPuntos(puntosNuevos){
+		puntos += puntosNuevos
 	}
+	
+	method tieneDisfraz() = true
 	
 	method nombreDisfraz() = nombreDisfraz
 	
@@ -22,18 +21,12 @@ class Disfraz {
 	
 	method esElOsoCarolina() = nombreDisfraz == "Oso Carolina"
 	
-	method edadDuenio() = personaQueLoLleva.edad()
+	method edadDuenio(duenio) = duenio.edad()
 	
-	method duenioSexy() = personaQueLoLleva.esSexy()
+	method duenioSexy(duenio) = duenio.esSexy()
  		
-	method sumatoriaPuntos() {
-		caracteristicas.forEach({car => car.puntosQueDa(self)})
-		const puntosQueTiene =caracteristicas.sum({car => car.puntosQueTiene()})
-		puntos = puntosQueTiene
-	}
-	
-	method duenioConforme() = personaQueLoLleva.estaConforme(self)
-	
+	method sumatoriaPuntos(duenio,fiesta) =	 caracteristicas.forEach({car => car.puntosQueDa(self,duenio,fiesta)})
+		
 	method tieneNombrePar() = nombreDisfraz.even()
 	
 	method hechoRecientemente(fechaActual) = fechaConfeccion >= (fechaActual.minusDays(30))
@@ -46,63 +39,49 @@ object ninguno inherits Disfraz{
 
 class Gracioso{
 	var nivelDeGracia
-	var puntosQueTiene
 	
-	method puntosQueTiene() = puntosQueTiene
-	
-	method puntosQueDa(disfraz){
-		if(disfraz.edadDuenio() > 50){
-			puntosQueTiene = nivelDeGracia * 3
+	method puntosQueDa(disfraz,duenio,fiesta){
+		if(duenio.edad() > 50){
+			disfraz.sumarPuntos(nivelDeGracia * 3)
 		}else{
-			puntosQueTiene = nivelDeGracia
+			disfraz.sumarPuntos(nivelDeGracia)
 		}
 	}
 	
-	
 }
 
-class tobara{
-	var puntosQueTiene
+class Tobara{
 	var diaComprado
-	var unaFiesta
 	
-	method diaFiesta() = unaFiesta.fecha()
+	method diaFiesta(fiesta) = fiesta.fecha()
 	
-	method puntosQueTiene() = puntosQueTiene
-	
-	method puntosQueDa(disfraz){
-		if((diaComprado.plusDays(2)) <= self.diaFiesta()){
-			puntosQueTiene = 5
+	method puntosQueDa(disfraz,duenio,fiesta){
+		if((diaComprado.plusDays(2)) <= self.diaFiesta(fiesta)){
+			disfraz.sumarPuntos(5)
 		}else{
-			puntosQueTiene = 3
+			disfraz.sumarPuntos(3) 
 		}
 	}
 }
 
-class Careta{
-	var puntosQueTiene
+object careta{
 	
-	method puntosQueTiene() = puntosQueTiene
-	
-	method puntosQueDa(disfraz){
+	method puntosQueDa(disfraz,duenio,fiesta){
 		if(disfraz.esMickey()){
-			puntosQueTiene = 8
+			 disfraz.sumarPuntos(8)
 		}else{
-			puntosQueTiene = 6
+			disfraz.sumarPuntos(6)
 		}
 	}
 }
 
-class Sexy{
-	var puntosQueTiene
+object sexy{
 	
-	method puntosQueTiene() = puntosQueTiene
-	
-	method puntosQueDa(disfraz){
-		if(disfraz.duenioSexy()){
-			puntosQueTiene = 15
+	method puntosQueDa(disfraz,duenio,fiesta){
+		if(disfraz.duenioSexy(duenio)){
+			disfraz.sumarPuntos(15)
 		}else{
-			puntosQueTiene = 2
+			disfraz.sumarPuntos(2)
 		}
 	}
 }

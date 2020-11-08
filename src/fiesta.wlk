@@ -1,15 +1,15 @@
 import disfraces.*
 
 class Fiesta {
-	var lugar
+	var lugar = ""
 	var fecha
 	var invitados = []
 	
 	method fecha() = fecha
 	
-	method esUnBodrio() = invitados.all({invitado => not(invitado.estaConforme())}) 
+	method esUnBodrio() = invitados.all({invitado => not(invitado.estaConforme(self))}) 
 	
-	method mejorDisfraz() =	invitados.max({invitado => invitado.puntosDisfraz()})
+	method mejorDisfraz() =	invitados.max({invitado => invitado.puntosDisfraz(self)})
 	
 	method estaEnFiesta(asistente) = invitados.any({invitado => invitado.esEl(asistente)})
 	
@@ -17,12 +17,12 @@ class Fiesta {
 	
 	method puedenCambiarDisfraz(asistente,otroAsist){
 		if(self.estanEnLaFiesta(asistente,otroAsist)){
-			if(not(asistente.estaConforme()) || not(otroAsist.estaConforme())){
+			if(not(asistente.estaConforme(self)) || not(otroAsist.estaConforme(self))){
 				const traje = asistente.disfraz()
 				const otroT = otroAsist.disfraz()
 				asistente.cambiarDisfraz(traje)
 				otroAsist.cambiarDisfraz(otroT)
-				return asistente.estaConforme() and otroAsist.estaConforme()
+				return asistente.estaConforme(self) and otroAsist.estaConforme(self)
 				}else{
 					return false
 				}
@@ -32,7 +32,7 @@ class Fiesta {
 		
 	}
 	
-	method sePuedeAgregar(invitado) = not(invitados.any({unInv => unInv.esEl(invitado)})) and invitado.tieneDisfraz()
+	method sePuedeAgregar(invitado) = not(invitados.any({unInv => unInv.esEl(invitado)})) and invitado.llevaDisfraz()
 	
 	method agregarInvitado(invitado){
 		if(self.sePuedeAgregar(invitado)){
@@ -42,7 +42,7 @@ class Fiesta {
 		}
 	}
 	
-	method fiestaInolvidable() = invitados.all({invitado => invitado.esSexy() and invitado.estaConforme()})
+	method fiestaInolvidable() = invitados.all({invitado => invitado.esSexy() and invitado.estaConforme(self)})
 		
 	
 }

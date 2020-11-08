@@ -16,27 +16,24 @@ class Persona {
 	method nombre() = nombre
 	
 	method cambiarDisfraz(nuevoDisfraz){
-		disfraz.sacarDuenio()
 		disfraz = nuevoDisfraz
 	}
 	
 	method esSexy() = personalidad.puedeSerSexy(self)
 	
-	method estaConforme(){
-		disfraz.sumatoriaPuntos()
+	method estaConforme(fiesta){
+		disfraz.sumatoriaPuntos(self,fiesta)
 		return disfraz.puntos() > 10 and caracteristica.cumpleCondicionCar(disfraz)
 	}
 	
 	method esPersonalidadAlegre() =  personalidad.esAlegre()
 	
-	method puntosDisfraz(){
-		disfraz.sumatoriaPuntos()
+	method puntosDisfraz(fiesta){
+		disfraz.sumatoriaPuntos(self,fiesta)
 		return disfraz.puntos()
 	}
 	
 	method esEl(asistente) = asistente.nombre() == nombre
-	
-	method tieneDisfraz() = disfraz != ninguno
 	
 }
 
