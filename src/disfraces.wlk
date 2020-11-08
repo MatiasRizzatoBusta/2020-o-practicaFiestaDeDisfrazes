@@ -21,7 +21,6 @@ class Disfraz {
 	
 	method esElOsoCarolina() = nombreDisfraz == "Oso Carolina"
 	
-	method edadDuenio(duenio) = duenio.edad()
 	
 	method duenioSexy(duenio) = duenio.esSexy()
  		
